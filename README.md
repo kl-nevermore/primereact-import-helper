@@ -13,7 +13,8 @@ This Visual Studio Code plugin enhances your development experience with PrimeRe
 ## Features
 
 - support components and hooks
-  ![image](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHdxaGhtOW5mMHp0d3AweWVnN24zcHJyNGNuNW9zYWxzcHoybHR6biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8jCG2cOXkmhcZP5qMG/giphy.gif)
+
+- ![image](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHdxaGhtOW5mMHp0d3AweWVnN24zcHJyNGNuNW9zYWxzcHoybHR6biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8jCG2cOXkmhcZP5qMG/giphy.gif)
 
 ## License
 
