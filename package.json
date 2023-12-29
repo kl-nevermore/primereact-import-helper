@@ -6,23 +6,15 @@
   "engines": {
     "vscode": "^1.85.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "author": "kl.nevermore",
+  "homepage": "https://github.com/kl-nevermore/primereact-import-helper",
   "activationEvents": [
     "onLanguage:javascript",
     "onLanguage:typescript",
     "onLanguage:typescriptreact"
   ],
   "main": "./dist/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "primereact-import-helper.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
+  "contributes": {},
   "scripts": {
     "format": "pnpm exec prettier . --write",
     "vscode:prepublish": "pnpm run package",
