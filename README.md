@@ -13,6 +13,7 @@ This Visual Studio Code plugin enhances your development experience with PrimeRe
 ## Features
 
 - support components and hooks
+  ![image](https://github.com/kl-nevermore/primereact-import-helper/blob/main/screenshot/screen.gif)
 
 ## License
 
