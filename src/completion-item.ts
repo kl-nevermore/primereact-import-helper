@@ -31,7 +31,7 @@ export function registerCompletionItem() {
         item.detail = `import { ${name} } from 'primereact/${fileName}';`;
         item.sortText = name[0];
 
-        item.data = { fileName };
+        item.data = { fileName, name };
         let insertText = '';
         if (linePrefix.startsWith('<')) {
           insertText = `${name}></${name}>`;
@@ -47,23 +47,25 @@ export function registerCompletionItem() {
 
       const ast = getAst(text);
       const lastImportLine = getLastImportDecarationLine(ast);
-
+      let importExists = false;
       traverse(ast, {
         ImportDeclaration(path) {
           completionItems.forEach((item) => {
             const fileName = item.data.fileName;
 
-            const importExists = t.isStringLiteral(path.node.source, {
+            importExists = t.isStringLiteral(path.node.source, {
               value: `primereact/${fileName}`,
             });
-
-            item.importExists = importExists;
+            if (importExists) {
+              path.stop();
+              return;
+            }
           });
         },
       });
       completionItems.forEach((item) => {
         const compName = (item.label as string).replace(':primereact', '');
-        if (!item.importExists) {
+        if (!importExists) {
           const importStatement = `import { ${compName} } from 'primereact/${item.data.fileName}';\n`;
 
           item.additionalTextEdits = [

@@ -8,14 +8,20 @@ import { registerQuickFix } from './quick-fix';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  let provider: vscode.Disposable | null = null;
+  let completionItemprovider: vscode.Disposable | null = null;
+  let quickFixprovider: vscode.Disposable | null = null;
 
-  context.subscriptions.push(registerQuickFix());
   vscode.workspace.onDidChangeTextDocument(() => {
-    provider?.dispose();
-    provider = null;
-    provider = registerCompletionItem();
-    context.subscriptions.push(provider);
+    completionItemprovider?.dispose();
+    completionItemprovider = null;
+    completionItemprovider = registerCompletionItem();
+
+    quickFixprovider?.dispose();
+    quickFixprovider = null;
+    quickFixprovider = registerQuickFix();
+
+    context.subscriptions.push(quickFixprovider);
+    context.subscriptions.push(completionItemprovider);
   });
 }
 
