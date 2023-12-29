@@ -1,12 +1,14 @@
 {
   "name": "primereact-import-helper",
   "displayName": "primereact-import-helper",
+  "publisher": "kl-nevermore",
   "description": "",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.85.0"
   },
   "author": "kl.nevermore",
+  "repository": "https://github.com/kl-nevermore/primereact-import-helper",
   "homepage": "https://github.com/kl-nevermore/primereact-import-helper",
   "activationEvents": [
     "onLanguage:javascript",
