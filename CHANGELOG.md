@@ -6,4 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+- 0.1.0
+  - Fix: import bugs
+  - Feature: support `primereact/api`
+  - Remove: unnecessary prompts
