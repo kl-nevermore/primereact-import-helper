@@ -12,7 +12,7 @@ const componentsList = [
   { name: 'Carousel', fileName: 'carousel' },
   { name: 'CascadeSelect', fileName: 'cascadeselect' },
   { name: 'Chart', fileName: 'chart' },
-  { name: 'CheckBox', fileName: 'checkbox' },
+  { name: 'Checkbox', fileName: 'checkbox' },
   { name: 'Chip', fileName: 'chip' },
   { name: 'Chips', fileName: 'chips' },
   { name: 'ColorPicker', fileName: 'colorpicker' },
