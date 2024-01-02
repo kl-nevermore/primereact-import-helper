@@ -1,7 +1,14 @@
 import * as vscode from 'vscode';
-import * as t from '@babel/types';
-import traverse from '@babel/traverse';
-import { emptyTextByLine, getAst, getLastImportDecarationLine } from './utils';
+
+import {
+  createImportStatement,
+  emptyTextByLine,
+  getAppendImportStatement,
+  getAst,
+  getImportInfoByAst,
+  getLastImportDecarationLine,
+} from './utils';
+
 import { searchList, documentSelectors } from './constants';
 
 export function registerQuickFix() {
@@ -24,33 +31,39 @@ export function registerQuickFix() {
           );
 
           fix.edit = new vscode.WorkspaceEdit();
+          fix.isPreferred = true;
 
           const text = emptyTextByLine(
             document.getText(),
             range.start.line + 1,
           );
+
           const ast = getAst(text);
           const lastImportLine = getLastImportDecarationLine(ast);
-          let importExists = false;
+          const { importExists, activeImportLine, appendImportStatement } =
+            getImportInfoByAst(ast, info.name, info.fileName);
 
-          traverse(ast, {
-            ImportDeclaration(path) {
-              importExists = t.isStringLiteral(path.node.source, {
-                value: `primereact/${info.fileName}`,
-              });
-            },
-          });
+          if (
+            importExists &&
+            activeImportLine !== null &&
+            appendImportStatement
+          ) {
+            const range = new vscode.Range(
+              new vscode.Position(activeImportLine - 1, 0),
+              new vscode.Position(activeImportLine - 1, text.length),
+            );
+            const code = getAppendImportStatement(
+              getAst(appendImportStatement),
+              info.name,
+            );
 
-          if (!importExists) {
-            const importStatement = `import { ${info.name} } from "primereact/${info.fileName}";\n`;
-
+            fix.edit.replace(document.uri, range, code);
+          } else if (!importExists) {
             fix.edit.insert(
               document.uri,
               new vscode.Position(lastImportLine, 0),
-              importStatement,
+              createImportStatement(info.name, info.fileName),
             );
-
-            fix.isPreferred = true;
 
             return [fix];
           }

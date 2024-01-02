@@ -185,7 +185,38 @@ const hooksList = [
   },
 ];
 
-export const searchList = [...componentsList, ...hooksList];
+const apiList = [
+  {
+    name: 'PrimeReactProvider',
+    fileName: 'api',
+  },
+  {
+    name: 'locale',
+    fileName: 'api',
+  },
+  {
+    name: 'addLocale',
+    fileName: 'api',
+  },
+  {
+    name: 'updateLocaleOption',
+    fileName: 'api',
+  },
+  {
+    name: 'updateLocaleOptions',
+    fileName: 'api',
+  },
+  {
+    name: 'localeOption',
+    fileName: 'api',
+  },
+  {
+    name: 'localeOptions',
+    fileName: 'api',
+  },
+];
+
+export const searchList = [...componentsList, ...hooksList, ...apiList];
 
 export const documentSelectors = [
   { scheme: 'file', language: 'typescriptreact' },

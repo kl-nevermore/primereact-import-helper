@@ -1,5 +1,7 @@
 import * as parser from '@babel/parser';
 import * as t from '@babel/types';
+import traverse from '@babel/traverse';
+import generator from '@babel/generator';
 import { searchList } from './constants';
 
 export function filterComponentsByPrefix(prefix: string) {
@@ -37,4 +39,59 @@ export function lowerCaseFirst(text: string) {
 export function isUpperCaseFirst(str: string) {
   var firstChar = str.charAt(0);
   return firstChar === firstChar.toUpperCase();
+}
+
+export function getImportInfoByAst(
+  ast: t.Node,
+  name: string,
+  fileName: string,
+) {
+  let importExists = false;
+  let activeImportLine: null | number = null;
+  let appendImportStatement = '';
+  traverse(ast, {
+    ImportDeclaration(path) {
+      const importPath = `primereact/${fileName}`;
+
+      const specifiers = path.node.specifiers;
+
+      if (path.node.source.value === importPath) {
+        importExists = t.isStringLiteral(path.node.source, {
+          value: importPath,
+        });
+
+        const target = specifiers.find(
+          (specifier) => specifier.local.name !== name,
+        );
+
+        if (target) {
+          activeImportLine = target.loc!.start.line;
+          appendImportStatement = generator(path.node).code;
+        }
+      }
+    },
+  });
+  return {
+    importExists,
+    activeImportLine,
+    appendImportStatement,
+  };
+}
+
+export function getAppendImportStatement(ast: t.Node, name: string) {
+  traverse(ast, {
+    ImportDeclaration(path) {
+      const newSpecifier = t.importSpecifier(
+        t.identifier(name),
+        t.identifier(name),
+      );
+      path.node.specifiers.push(newSpecifier);
+    },
+  });
+
+  return generator(ast).code;
+}
+
+export function createImportStatement(name: string, fileName: string) {
+  return `import { ${name} } from 'primereact/${fileName}';\n`;
 }

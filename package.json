@@ -3,7 +3,7 @@
   "displayName": "primereact-import-helper",
   "publisher": "kl-nevermore",
   "description": "",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -30,11 +30,13 @@
     "test": "node ./out/test/runTest.js"
   },
   "dependencies": {
-    "@babel/types": "7.23.6",
-    "@babel/parser": "7.23.6",
-    "@babel/traverse": "7.23.6"
+    "@babel/generator": "^7.23.6",
+    "@babel/types": "^7.23.6",
+    "@babel/parser": "^7.23.6",
+    "@babel/traverse": "^7.23.6"
   },
   "devDependencies": {
+    "@types/babel__generator": "^7.6.8",
     "prettier": "^3.1.1",
     "@types/babel__traverse": "7.20.4",
     "@types/vscode": "^1.85.0",
